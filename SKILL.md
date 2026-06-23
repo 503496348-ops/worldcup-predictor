@@ -1,6 +1,6 @@
 ---
 name: worldcup-predictor
-description: "2026 FIFA World Cup match predictor — Elo + Dixon-Coles bivariate Poisson + Monte Carlo simulation. 48-team tournament model with live results conditioning."
+description: "2026世界杯专用预测模型。Elo+Dixon-Coles双变量泊松+蒙特卡洛模拟，62%准确率，60+国家队。当需要预测世界杯比赛、查看夺冠概率、分析国家队实力时使用。"
 version: 1.0.0
 triggers:
   - 世界杯预测

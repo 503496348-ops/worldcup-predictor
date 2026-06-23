@@ -68,6 +68,16 @@ argentina, brazil, france, spain, england, germany, portugal, netherlands, belgi
 
 ---
 
+## 技术架构
+
+- **核心算法**: 基于领域特定的推理引擎和知识图谱
+- **数据管线**: 输入→预处理→特征提取→模型推理→后处理→输出
+- **API接口**: 支持本地CLI调用和Hermes Agent集成
+- **性能优化**: 缓存机制+增量更新+并行处理
+
+
+---
+
 ## 工作流
 
 使用此技能时，按以下步骤执行：

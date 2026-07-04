@@ -8,6 +8,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { matchProb } from "./elo.mjs";
 import { PiRatingSystem, fusePiProbs } from "./pi-rating.mjs";
 import { conformalPredict } from "./conformal.mjs";
+import { monteCarloSimulate, scoreProbabilityGrid } from "./monte-carlo.mjs";
 
 const D = (f) => new URL(`./data/${f}`, import.meta.url);
 
@@ -92,6 +93,22 @@ if (calibRecords.length >= 10) {
   );
 }
 
+// ── Monte Carlo simulation (Poisson + lambda uncertainty) ──────────────────
+const mc = monteCarloSimulate(
+  eloPred.expectedGoalsA,
+  eloPred.expectedGoalsB,
+  -0.13,  // DC rho
+  10000,  // nSim
+  0.15    // lambda uncertainty CV
+);
+
+// Analytic grid (penaltyblog-style Dixon-Coles)
+const analyticGrid = scoreProbabilityGrid(
+  eloPred.expectedGoalsA,
+  eloPred.expectedGoalsB,
+  -0.13
+);
+
 // ── Output ─────────────────────────────────────────────────────────────────
 const label = (idx) => ["homeWin", "draw", "awayWin"][idx];
 
@@ -119,5 +136,18 @@ if (cpResult) {
   console.log(`    confidence: ${cpResult.confidence}  (calibration n=${cpResult.calibrationSize})`);
   console.log(`    adjusted probs:  ${a} ${(cpResult.adjustedProbs[0] * 100).toFixed(1)}%  draw ${(cpResult.adjustedProbs[1] * 100).toFixed(1)}%  ${b} ${(cpResult.adjustedProbs[2] * 100).toFixed(1)}%`);
 }
+
+console.log(`\n  Monte Carlo (10k sims, λ-uncertainty CV=15%):`);
+console.log(`    ${a.padEnd(16)} win  ${(mc.homeWin * 100).toFixed(1).padStart(5)}%  ${bar(mc.homeWin)}`);
+console.log(`    ${"draw".padEnd(16)}      ${(mc.draw * 100).toFixed(1).padStart(5)}%  ${bar(mc.draw)}`);
+console.log(`    ${b.padEnd(16)} win  ${(mc.awayWin * 100).toFixed(1).padStart(5)}%  ${bar(mc.awayWin)}`);
+console.log(`    most likely:  ${mc.topScores[0]?.score} (${(mc.topScores[0]?.prob * 100).toFixed(1)}%)`);
+console.log(`    95% CI goal diff: [${mc.confidence95_goalDiff[0]}, ${mc.confidence95_goalDiff[1]}]`);
+
+console.log(`\n  Analytic Grid (Dixon-Coles, penaltyblog-style):`);
+console.log(`    ${a.padEnd(16)} win  ${(analyticGrid.homeWin * 100).toFixed(1).padStart(5)}%`);
+console.log(`    ${"draw".padEnd(16)}      ${(analyticGrid.draw * 100).toFixed(1).padStart(5)}%`);
+console.log(`    ${b.padEnd(16)} win  ${(analyticGrid.awayWin * 100).toFixed(1).padStart(5)}%`);
+console.log(`    most likely score: ${analyticGrid.mostLikelyScore}`);
 
 console.log("");

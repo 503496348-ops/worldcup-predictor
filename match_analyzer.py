@@ -79,3 +79,24 @@ class MatchAnalyzer:
             'home_xg': stats.home_shots_on_target * AVG_XG_PER_SOT,
             'away_xg': stats.away_shots_on_target * AVG_XG_PER_SOT,
         }
+
+    def statsbomb_match_stats(
+        self, match_id: str, home_team: str, away_team: str, events: List[Dict]
+    ) -> MatchStats:
+        """Aggregate StatsBomb Open Data shot events for tournament analysis."""
+        stats = MatchStats(match_id=match_id, home_team=home_team, away_team=away_team)
+        for event in events:
+            if str((event.get("type") or {}).get("name") or "").lower() != "shot":
+                continue
+            team = str((event.get("team") or {}).get("name") or "")
+            outcome = str(((event.get("shot") or {}).get("outcome") or {}).get("name") or "").lower()
+            on_target = outcome in {"goal", "saved", "saved to post"}
+            if team == home_team:
+                stats.home_shots += 1
+                stats.home_shots_on_target += int(on_target)
+                stats.home_goals += int(outcome == "goal")
+            elif team == away_team:
+                stats.away_shots += 1
+                stats.away_shots_on_target += int(on_target)
+                stats.away_goals += int(outcome == "goal")
+        return stats

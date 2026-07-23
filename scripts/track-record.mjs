@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { matchProb } from "./elo.mjs";
 
-const D = (f) => new URL(`./data/${f}`, import.meta.url);
+const D = (f) => new URL(`../data/${f}`, import.meta.url);
 const { ratings } = JSON.parse(readFileSync(D("elo-calibrated.json"), "utf8"));
 const { updated, matches } = JSON.parse(readFileSync(D("wc2026-results.json"), "utf8"));
 
@@ -53,10 +53,10 @@ const body = n === 0
     ].join("\n");
 
 const section = `<!-- TRACK-RECORD:START -->\n${body}\n<!-- TRACK-RECORD:END -->`;
-const readme = readFileSync(new URL("./README.md", import.meta.url), "utf8");
+const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
 if (!readme.includes("<!-- TRACK-RECORD:START -->")) {
   console.error("✗ README is missing the TRACK-RECORD markers"); process.exit(1);
 }
-writeFileSync(new URL("./README.md", import.meta.url),
+writeFileSync(new URL("../README.md", import.meta.url),
   readme.replace(/<!-- TRACK-RECORD:START -->[\s\S]*?<!-- TRACK-RECORD:END -->/, section));
 console.log(`✓ README track record updated — ${n} finished match(es)${n ? `, ${hits}/${n} correct` : ""}.`);

@@ -10,7 +10,7 @@ import { PiRatingSystem, fusePiProbs } from "./pi-rating.mjs";
 import { conformalPredict } from "./conformal.mjs";
 import { monteCarloSimulate, scoreProbabilityGrid } from "./monte-carlo.mjs";
 
-const D = (f) => new URL(`./data/${f}`, import.meta.url);
+const D = (f) => new URL(`../data/${f}`, import.meta.url);
 
 // ── Load Elo ratings ───────────────────────────────────────────────────────
 const { ratings } = JSON.parse(readFileSync(D("elo-calibrated.json"), "utf8"));

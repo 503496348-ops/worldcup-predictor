@@ -38,14 +38,15 @@ metadata:
 ## 使用方式
 
 ```bash
+# 在仓库根目录执行（或把 scripts/ 换成实际 skill 安装路径）
 # 预测单场比赛
-node ~/.hermes/skills/worldcup-predictor/scripts/predict.mjs brazil argentina
+node scripts/predict.mjs brazil argentina
 
 # 主场优势预测
-node ~/.hermes/skills/worldcup-predictor/scripts/predict.mjs usa mexico usa
+node scripts/predict.mjs usa mexico usa
 
 # 查看所有可用队伍
-node ~/.hermes/skills/worldcup-predictor/scripts/predict.mjs
+node scripts/predict.mjs
 ```
 
 ## 可用队伍 (60+)

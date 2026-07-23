@@ -4,7 +4,7 @@
 //   node calibrate.mjs
 import { readFileSync, writeFileSync } from "node:fs";
 
-const D = (f) => new URL(`./data/${f}`, import.meta.url);
+const D = (f) => new URL(`../data/${f}`, import.meta.url);
 
 // Long-run strength priors (Elo anchors) for the 48 finalists.
 const SEED = {

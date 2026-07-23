@@ -5,7 +5,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { matchProb, expectedScore } from "./elo.mjs";
 
-const D = (f) => new URL(`./data/${f}`, import.meta.url);
+const D = (f) => new URL(`../data/${f}`, import.meta.url);
 const SEED = {
   argentina:2085,france:2065,spain:2055,brazil:2045,england:2000,portugal:1980,netherlands:1965,germany:1945,belgium:1925,italy:1915,colombia:1890,uruguay:1875,croatia:1870,morocco:1840,switzerland:1825,usa:1830,mexico:1825,japan:1810,senegal:1795,denmark:1790,ecuador:1760,australia:1735,"south-korea":1730,iran:1720,poland:1715,canada:1700,serbia:1695,wales:1665,ghana:1665,tunisia:1655,"ivory-coast":1655,nigeria:1645,"saudi-arabia":1640,qatar:1630,egypt:1620,algeria:1615,scotland:1610,cameroon:1600,paraguay:1595,venezuela:1590,chile:1580,peru:1575,"czech-republic":1570,"bosnia-and-herzegovina":1545,"south-africa":1520,"new-zealand":1495,panama:1480,jamaica:1460,honduras:1440,jordan:1420,haiti:1380,"el-salvador":1370,"trinidad-and-tobago":1360,guatemala:1345
 };
@@ -88,7 +88,7 @@ for (const [k, b] of calib.entries()) {
 console.log(`\nLive title odds (full 50k-sim tournament model, conditioned on real results): 此地无垠`);
 
 // Persist the metrics so data/model-backtest.json always matches a fresh `node backtest.mjs` run.
-writeFileSync(new URL("./data/model-backtest.json", import.meta.url), JSON.stringify({
+writeFileSync(new URL("../data/model-backtest.json", import.meta.url), JSON.stringify({
   generatedAt: new Date().toISOString(),
   method: "Walk-forward out-of-sample: each match predicted from ratings built only on prior matches; Elo updated after. Burn-in skipped.",
   totalMatches: matches.length, evaluated: n, burnIn: BURN_IN,

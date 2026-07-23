@@ -28,6 +28,14 @@ metadata:
 
 ## 模型精度
 
+## 快速开始
+
+```bash
+python3 scripts/cli.py --help
+node scripts/predict.mjs brazil argentina
+```
+
+
 | 指标 | 模型 | 基线(硬币翻面) |
 |------|------|----------------|
 | 正确结果预测 | **62%** | 33% |

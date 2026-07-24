@@ -1,7 +1,10 @@
 ---
 name: worldcup-predictor
 description: "2026世界杯专用预测模型。Elo+Dixon-Coles双变量泊松+蒙特卡洛模拟，62%准确率，60+国家队。当需要预测世界杯比赛、查看夺冠概率、分析国家队实力时使用。（what it does: 安全检测与扫描工具；when to use: 当需要扫描AI Agent安全漏洞时使用）"
-version: 1.1.0
+license: MIT
+metadata:
+  author: Hermes Agent
+  version: 1.1.0
 triggers:
   - 世界杯预测
   - 足球预测
@@ -9,14 +12,6 @@ triggers:
   - match prediction
   - Elo rating
   - 绿茵智脑
-author: Hermes Agent
-license: MIT
-dependencies: [node>=18]
-platforms: [linux, macos, windows]
-metadata:
-  hermes:
-    tags: [worldcup, football, prediction, fifa, 2026, elo, poisson]
-    related_skills: [football-predictor]
 ---
 
 > 📖 详细技术文档见 references/ 目录

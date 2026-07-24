@@ -5,18 +5,20 @@ license: MIT
 metadata:
   author: Hermes Agent
   version: 1.1.0
-triggers:
-  - 世界杯预测
-  - 足球预测
-  - worldcup predict
-  - match prediction
-  - Elo rating
-  - 绿茵智脑
 ---
 
 > 📖 详细技术文档见 references/ 目录
 
 # 2026 世界杯预测
+
+## 触发条件
+
+- 世界杯预测
+- 足球预测
+- worldcup predict
+- match prediction
+- Elo rating
+- 绿茵智脑
 
 基于 Elo + Dixon-Coles 双变量泊松分布 + 蒙特卡洛模拟的世界杯预测模型。
 
